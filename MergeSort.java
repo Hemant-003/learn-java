@@ -9,6 +9,14 @@ class MergeSort {
 		System.out.println(Arrays.toString(merge2Arrays(null, null)));
 	}
 
+	/* 
+	 Length of array1 is m
+	 Length of array2 is n
+	 Space complexity is m + n
+	 Time complexity 
+		 O(m + n)
+	*/
+
 	private static int[] merge2Arrays(int ar1[], int ar2[]){
 		if (ar1 == null) ar1 = new int[0];
 		if (ar2 == null) ar2 = new int[0];
