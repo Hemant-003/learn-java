@@ -1,18 +1,22 @@
-import java.util.*;
-class ArrayBasics{
-	public static void main(String[] args) {
-		int uy;
-		Scanner sc = new Scanner(System.in);
-		System.out.println("Enter length of array");
-		int length = sc.nextInt();
-		int x[] = new int[length];
-		for (int i=0; i<x.length;i++){
-			x[i]=sc.nextInt();
-		}
-		for (int j=0;j<x.length;j++) {
-			System.out.println(x[j]);
-		}
+package com.company;
+import java.util.Scanner;
 
-		System.out.println(x.length);
-	}
+ class ArrayBasics {
+    public static void main(String[] args) {
+        input(8);
+    }
+
+    public static int[] input(int b) {
+        Scanner sc= new Scanner(System.in);
+        int a[] = new int [b];
+        for (int i =0;i<a.length;i++){
+            a[i]= sc.nextInt();
+        }
+        for (int j=0;j<a.length;j++) {
+            System.out.println(a[j]);
+        }
+        
+
+        return a;
+    }
 }
