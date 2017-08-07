@@ -32,7 +32,6 @@ public class AddTwoArrays {
             }
 
             System.out.println();
-            s.close();
 
         }
 
