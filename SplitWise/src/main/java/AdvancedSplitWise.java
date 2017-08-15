@@ -36,9 +36,13 @@ class AdvancedSplitWise {
         //Should return money. Should remove from advance.
     }
 
-    public void print() {
+    @Override
+    public String toString() {
+        StringBuilder toString = new StringBuilder();
         for (Person person:people) {
-            System.out.println(person);
+            toString.append(person.toString());
         }
+
+        return toString.toString();
     }
 }
