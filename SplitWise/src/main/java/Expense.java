@@ -7,7 +7,7 @@ class Expense {
     }
 
     @Override
-    public java.lang.String toString() {
+    public String toString() {
         return "" + amount;
     }
 }

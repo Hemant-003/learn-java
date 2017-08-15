@@ -12,13 +12,20 @@ apply plugin: 'application'
 mainClassName = "AdvancedSplitWiseMain"
 
 
+repositories {
+    mavenCentral()
+}
 /*
 * Had to add the below piece because of the error:
 * no main manifest attribute, in build/libs/SplitWise.jar
 */
-
 jar {
     manifest {
         attributes('Main-Class': 'AdvancedSplitWiseMain')
     }
+}
+
+dependencies {
+//    This is needed for tests. For this to work we need to define some repositories
+    testCompile 'junit:junit:4.12'
 }

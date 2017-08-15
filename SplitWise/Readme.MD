@@ -26,4 +26,4 @@ To run:
 Learning
 ----
 
-To make gradle work well place all java files in `src/main/java`. 
+To make gradle work well place all java files in `src/main/java`.
