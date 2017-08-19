@@ -7,16 +7,15 @@ Java Format for this - 'd/M/yyyy'
  Requirements:
 ------
 	
-Take number of people  
-Take name and amount from every person  
-Expense should be for a specific month  
-Option to add spend by person  
-* From advance this amount deducted and given to person  
-* This amount should reflect in person's expenses  
-* Take less advance if balance is left  
-* If we exceed advance we should get message -  to collect it from next month  
-Give option to take advance from people  
-
+* Add Person ^
+* Add ExpenseByPerson ^
+* Add AdvanceByPerson ^
+* View ExpenseByPerson w/o Month ^
+* View Statement ^
+* View AmountDueByPeople (for month) 
+* View AmountDueByPeople (total)
+    
+    
 Nice To Haves  
 ----------
 Dates in expenditure would be really nice to have.  

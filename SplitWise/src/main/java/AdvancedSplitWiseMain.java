@@ -8,7 +8,7 @@ class AdvancedSplitWiseMain {
         splitWise.collectMoney();
 
         while (true){
-            System.out.println("Options:\n1.Add Expense by person\n2.View all people\n\n");
+            System.out.println("Options:\n1.Add Transaction by person\n2.View all people\n\n");
             int choice = s.nextInt();
             switch (choice){
                 case 1: readExpense(splitWise); break;
@@ -19,12 +19,12 @@ class AdvancedSplitWiseMain {
     }
 
     private static void readExpense(AdvancedSplitWise splitWise) throws Exception {
-        System.out.println("Enter name and expense in this format - `Name amount`. e.g. `Jon 200`");
+        System.out.println("Enter name and transaction in this format - `Name amount`. e.g. `Jon 200`");
         String input = s.next();
         String[] split = input.split(" ");
-        Expense expense = new Expense(Integer.parseInt(split[1]), new Date());
+        Transaction transaction = new Transaction(Integer.parseInt(split[1]), new Date());
         Person person = splitWise.findPerson(split[0]);
-        splitWise.addExpense(person, expense);
+        splitWise.addExpense(person, transaction);
 
     }
 }

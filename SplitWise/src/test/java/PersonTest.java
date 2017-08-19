@@ -4,11 +4,13 @@ import util.Util;
 
 import java.text.ParseException;
 import java.util.Calendar;
-import java.util.Optional;
+import java.util.Date;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
 public class PersonTest {
+
     Person raj;
     @Before
     public void setUp(){
@@ -17,19 +19,19 @@ public class PersonTest {
 
     @Test
     public void testAddAdvance() throws ParseException {
-        raj.addAdvance(new Expense(1000, Util.getDate("12/12/2012")));
+        raj.add(new Transaction(1000, Util.getDate("12/12/2012")));
 
-        Expense advanceForMonth = raj.getAdvanceForMonth(Calendar.DECEMBER);
+        Transaction advanceForMonth = raj.getAdvanceForMonth(Calendar.DECEMBER);
         assertEquals(1000 ,advanceForMonth.amount);
     }
 
     @Test
     public void getAdvanceForMonths() throws ParseException {
-        raj.addAdvance(new Expense(1000, Util.getDate("12/12/2012")));
-        raj.addAdvance(new Expense(900, Util.getDate("12/11/2012")));
+        raj.add(new Transaction(1000, Util.getDate("12/12/2012")));
+        raj.add(new Transaction(900, Util.getDate("12/11/2012")));
 
-        Expense advanceForMonthOfDecember = raj.getAdvanceForMonth(Calendar.DECEMBER);
-        Expense advanceForMonthNovember = raj.getAdvanceForMonth(Calendar.NOVEMBER);
+        Transaction advanceForMonthOfDecember = raj.getAdvanceForMonth(Calendar.DECEMBER);
+        Transaction advanceForMonthNovember = raj.getAdvanceForMonth(Calendar.NOVEMBER);
         assertEquals(1000 ,advanceForMonthOfDecember.amount);
         assertEquals(900 ,advanceForMonthNovember.amount);
     }
@@ -37,11 +39,23 @@ public class PersonTest {
 
     @Test
     public void getAdvancePaidTwiceForSameMonth() throws ParseException {
-        raj.addAdvance(new Expense(1000, Util.getDate("12/12/2012")));
-        raj.addAdvance(new Expense(900, Util.getDate("13/12/2012")));
+        raj.add(new Transaction(1000, Util.getDate("12/12/2012")));
+        raj.add(new Transaction(900, Util.getDate("13/12/2012")));
 
-        Expense advanceForMonthOfDecember = raj.getAdvanceForMonth(Calendar.DECEMBER);
+        Transaction advanceForMonthOfDecember = raj.getAdvanceForMonth(Calendar.DECEMBER);
         assertEquals(1900 ,advanceForMonthOfDecember.amount);
+    }
+
+    @Test
+    public void testStatement() throws Exception {
+        raj.add(new Transaction(900, Util.getDate("04/12/2014")));
+        raj.add(new Transaction(1000, Util.getDate("06/12/2014")));
+        raj.spend(new Transaction(900, Util.getDate("08/12/2014")));
+        raj.add(new Transaction(900, Util.getDate("09/12/2014")));
+        raj.spend(new Transaction(2900, Util.getDate("10/12/2014")));
+
+        List<TransactionInformation> statement = raj.statement(Calendar.DECEMBER);
+        System.out.println(statement);
     }
 
 }

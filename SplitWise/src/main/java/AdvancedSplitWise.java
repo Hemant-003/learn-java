@@ -4,7 +4,7 @@ import java.util.*;
 
 class AdvancedSplitWise {
     private int numberOfPeople;
-    private Expense advance = new Expense(0, new Date());
+    private Transaction advance = new Transaction(0, new Date());
     ArrayList<Person> people = new ArrayList<>();
 
     public void collectMoney() {
@@ -26,7 +26,7 @@ class AdvancedSplitWise {
     }
 
 
-    void addExpense(Person p, Expense e) {
+    void addExpense(Person p, Transaction e) {
         p.spend(e);
         //Should return money. Should remove from advance.
     }
@@ -47,15 +47,15 @@ class AdvancedSplitWise {
     }
 
 
-    public Expense advanceFor(int month) {
+    public Transaction advanceFor(int month) {
         // Read about chaining of streams
-        return people.stream().map(p -> p.getAdvanceForMonth(month)).reduce(new Expense(), Expense::add);
+        return people.stream().map(p -> p.getAdvanceForMonth(month)).reduce(new Transaction(), Transaction::add);
     }
 
-    public Expense expenseFor(int month) {
-        // Read about chaining of streams
-        return people.stream().map(p -> p.getExpenseForMonth(month)).reduce(new Expense(), Expense::add);
-    }
+//    public Transaction expenseFor(int month) {
+//        // Read about chaining of streams
+//        return people.stream().map(p -> p.getExpenseForMonth(month)).reduce(new Transaction(), Transaction::add);
+//    }
 
     public Person findPerson(String s) {
         for (Person p : people) {

@@ -14,6 +14,8 @@ public class Util {
     * Also the format.parse returns a date object
     */
     private static final DateFormat format = new SimpleDateFormat("d/M/yyyy", Locale.ENGLISH);
+    private static Locale indianLocale  = new Locale("hi", "IN");
+
     public static Date getDate(String date) throws ParseException {
         return format.parse(date);
     }
@@ -23,5 +25,9 @@ public class Util {
         cal.setTime(date);
         // TIDBIT Calendar.MONTH is an integer. You can access it using Calendar.JULY for example
         return cal.get(Calendar.MONTH);
+    }
+
+    public static Locale getLocale() {
+        return indianLocale;
     }
 }

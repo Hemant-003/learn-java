@@ -1,46 +1,79 @@
 import util.Util;
 
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
-class Person {
-    String name;
-    ArrayList<Expense> expense = new ArrayList<>();
-    ArrayList<Expense> advance = new ArrayList<>();
+class Person implements Persona {
+    private String name;
+    private ArrayList<Transaction> expenditure = new ArrayList<>();
+    private ArrayList<Transaction> advance = new ArrayList<>();
 
     public Person(String name) {
         this.name = name;
     }
 
-    public void spent(Expense spent){
-
-    }
-
     @Override
-    public String toString(){
+    public String toString() {
         return name + "\t" + advance;
     }
 
-    void spend(Expense e) {
-        expense.add(e);
+    @Override
+    public void add(Transaction transaction) {
+        advance.add(transaction);
     }
 
-    Expense getAdvanceForMonth(int month){
-        Expense expenseForMonthOf = new Expense();
-        for (Expense e : advance) {
+    @Override
+    public void spend(Transaction e) {
+        expenditure.add(e);
+    }
+
+    @Override
+    public List<Transaction> expenses(int month) {
+        return expenditure.stream().filter(e -> Util.getMonth(e.date) == month).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Transaction> expenses() {
+        return Collections.unmodifiableList(expenditure);
+    }
+
+    @Override
+    public List<TransactionInformation> statement(int month) {
+        // TIDBIT (Not here in this code)Comparator.comparing does magic equal to the following - x.date.compareTo(y.date)
+        Stream<TransactionInformation> expenditureInformation = expenditure.stream()
+                .map(x -> new TransactionInformation(x, TransactionType.DEBIT));
+
+        Stream<TransactionInformation> advanceInformation = advance.stream()
+                .map(x -> new TransactionInformation(x, TransactionType.CREDIT));
+
+        AtomicInteger sum = new AtomicInteger(0);
+        return Stream.concat(expenditureInformation, advanceInformation)
+                .sorted()
+                .map(x -> {
+                    x.balance = sum.addAndGet(x.getAmount());
+                    return x;
+                })
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public void settleUp(Transaction t) {
+
+    }
+
+    Transaction getAdvanceForMonth(int month) {
+        Transaction transactionForMonthOf = new Transaction();
+        for (Transaction e : advance) {
             int expenseForMonth = Util.getMonth(e.date);
             if (month == expenseForMonth)
-                expenseForMonthOf.add(e);
+                transactionForMonthOf.add(e);
         }
-        return expenseForMonthOf;
+        return transactionForMonthOf;
     }
 
-    Expense getExpenseForMonth(int month){
-        return expense.stream().filter(e -> Util.getMonth(e.date) == month).reduce(new Expense(), Expense::add);
-    }
-
-    void addAdvance(Expense expense) {
-        advance.add(expense);
-    }
 
     public boolean is(String s) {
         return s.equals(name);
