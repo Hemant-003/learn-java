@@ -1,14 +1,11 @@
+import exceptions.PersonNotFoundException;
+
 import java.util.*;
 
 class AdvancedSplitWise {
-    int numberOfPeople;
-    Expense advance;
-    ArrayList<Person> people;
-
-    public AdvancedSplitWise(int numberOfPeople) {
-        people = new ArrayList(numberOfPeople);
-        this.numberOfPeople = numberOfPeople;
-    }
+    private int numberOfPeople;
+    private Expense advance = new Expense(0, new Date());
+    ArrayList<Person> people = new ArrayList<>();
 
     public void collectMoney() {
         System.out.println(numberOfPeople);
@@ -19,30 +16,53 @@ class AdvancedSplitWise {
             System.out.println("Enter amount to be paid by " + name);
             int amount = s.nextInt();
 
-            people.add(new Person(name, amount));
+            people.add(new Person(name));
         }
     }
 
-    public void takeAdvance(Person p, Expense advance) {
-        int x, y;
+    public void takeAdvance(Person p) {
 
-        // x++; x is operand, ++ is operator -> One operand is unary
-        // x+y; x and y is operand, + is operator -> Two operand is binary
         people.add(p);
     }
 
 
-    public void addExpense(Person p, Expense e) {
+    void addExpense(Person p, Expense e) {
+        p.spend(e);
         //Should return money. Should remove from advance.
     }
 
     @Override
     public String toString() {
         StringBuilder toString = new StringBuilder();
-        for (Person person:people) {
+        for (Person person : people) {
             toString.append(person.toString());
         }
 
         return toString.toString();
+    }
+
+    public void addPerson(Person person) {
+        people.add(person);
+        this.numberOfPeople++;
+    }
+
+
+    public Expense advanceFor(int month) {
+        // Read about chaining of streams
+        return people.stream().map(p -> p.getAdvanceForMonth(month)).reduce(new Expense(), Expense::add);
+    }
+
+    public Expense expenseFor(int month) {
+        // Read about chaining of streams
+        return people.stream().map(p -> p.getExpenseForMonth(month)).reduce(new Expense(), Expense::add);
+    }
+
+    public Person findPerson(String s) {
+        for (Person p : people) {
+            if (p.is(s)) {
+                return p;
+            }
+        }
+        throw new PersonNotFoundException("Wrong Name entered");
     }
 }

@@ -1,20 +1,30 @@
+import java.util.Date;
 import java.util.Scanner;
 
 class AdvancedSplitWiseMain {
-    public static void main(String[] args) {
-        Scanner s = new Scanner(System.in);
-        int numberOfPeople = Integer.parseInt(args[0]);
-        AdvancedSplitWise splitWise = new AdvancedSplitWise(numberOfPeople);
+    private final static Scanner s = new Scanner(System.in);
+    public static void main(String[] args) throws Exception {
+        AdvancedSplitWise splitWise = new AdvancedSplitWise();
         splitWise.collectMoney();
 
         while (true){
             System.out.println("Options:\n1.Add Expense by person\n2.View all people\n\n");
             int choice = s.nextInt();
             switch (choice){
-                case 1: break;//splitWise.addExpense();
+                case 1: readExpense(splitWise); break;
                 case 2: System.out.println(splitWise); break;
                 default:break;
             }
         }
+    }
+
+    private static void readExpense(AdvancedSplitWise splitWise) throws Exception {
+        System.out.println("Enter name and expense in this format - `Name amount`. e.g. `Jon 200`");
+        String input = s.next();
+        String[] split = input.split(" ");
+        Expense expense = new Expense(Integer.parseInt(split[1]), new Date());
+        Person person = splitWise.findPerson(split[0]);
+        splitWise.addExpense(person, expense);
+
     }
 }
