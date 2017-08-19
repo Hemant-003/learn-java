@@ -1,12 +1,9 @@
-enum TransactionType {
-    CREDIT,
-    DEBIT
-}
+package models;
 
 public class TransactionInformation implements Comparable{
     private Transaction transaction;
     private TransactionType type;
-    int balance;
+    public int balance;
 
     public TransactionInformation(Transaction x, TransactionType credit) {
         transaction = x;
@@ -22,7 +19,7 @@ public class TransactionInformation implements Comparable{
 
     @Override
     public String toString() {
-        return "transaction=" + transaction +
+        return "models=" + transaction +
                 ", type=" + type +
                 ", balance=" + balance + "\n";
     }

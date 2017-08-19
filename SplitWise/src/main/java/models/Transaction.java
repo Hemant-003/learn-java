@@ -1,15 +1,17 @@
+package models;
+
 import java.util.Date;
 
-class Transaction implements Comparable {
-    int amount;
-    Date date = new Date();
+public class Transaction implements Comparable {
+    public int amount;
+    public Date date = new Date();
 
-    Transaction(int amount, Date date) {
+    public Transaction(int amount, Date date) {
         this.amount = amount;
         this.date = date;
     }
 
-    Transaction() {
+    public Transaction() {
 
     }
 
@@ -22,7 +24,7 @@ class Transaction implements Comparable {
         amount = amount - e.amount;
     }
 
-    Transaction add(Transaction x) {
+    public Transaction add(Transaction x) {
         this.amount = x.amount + this.amount;
         return this;
     }
