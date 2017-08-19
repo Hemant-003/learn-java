@@ -1,8 +1,10 @@
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import util.Util;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -44,19 +46,22 @@ class Person implements Persona {
     public List<TransactionInformation> statement(int month) {
         // TIDBIT (Not here in this code)Comparator.comparing does magic equal to the following - x.date.compareTo(y.date)
         Stream<TransactionInformation> expenditureInformation = expenditure.stream()
+                .filter(x -> Util.getMonth(x.date) == month)
                 .map(x -> new TransactionInformation(x, TransactionType.DEBIT));
 
         Stream<TransactionInformation> advanceInformation = advance.stream()
+                .filter(x -> Util.getMonth(x.date) == month)
                 .map(x -> new TransactionInformation(x, TransactionType.CREDIT));
 
         AtomicInteger sum = new AtomicInteger(0);
-        return Stream.concat(expenditureInformation, advanceInformation)
+        List<TransactionInformation> transactions = Stream.concat(expenditureInformation, advanceInformation)
                 .sorted()
                 .map(x -> {
                     x.balance = sum.addAndGet(x.getAmount());
                     return x;
                 })
                 .collect(Collectors.toList());
+        return Collections.unmodifiableList(transactions);
     }
 
     @Override
@@ -75,7 +80,7 @@ class Person implements Persona {
     }
 
 
-    public boolean is(String s) {
+    boolean is(String s) {
         return s.equals(name);
     }
 }

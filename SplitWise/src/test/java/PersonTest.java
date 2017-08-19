@@ -10,7 +10,6 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 public class PersonTest {
-
     Person raj;
     @Before
     public void setUp(){
@@ -51,11 +50,26 @@ public class PersonTest {
         raj.add(new Transaction(900, Util.getDate("04/12/2014")));
         raj.add(new Transaction(1000, Util.getDate("06/12/2014")));
         raj.spend(new Transaction(900, Util.getDate("08/12/2014")));
-        raj.add(new Transaction(900, Util.getDate("09/12/2014")));
         raj.spend(new Transaction(2900, Util.getDate("10/12/2014")));
+        raj.spend(new Transaction(2900, Util.getDate("10/11/2014")));
 
         List<TransactionInformation> statement = raj.statement(Calendar.DECEMBER);
-        System.out.println(statement);
+
+        assertEquals(4, statement.size());
+        assertEquals(900, statement.get(0).balance);
+        assertEquals(1900, statement.get(1).balance);
+        assertEquals(1000, statement.get(2).balance);
+        assertEquals(-1900, statement.get(3).balance);
     }
+
+    @Test
+    public void testExpenses() {
+
+    }
+
+    @Test
+    public void testExpensesForMonth() {
+    }
+
 
 }

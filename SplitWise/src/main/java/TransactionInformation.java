@@ -4,8 +4,8 @@ enum TransactionType {
 }
 
 public class TransactionInformation implements Comparable{
-    Transaction transaction;
-    TransactionType type;
+    private Transaction transaction;
+    private TransactionType type;
     int balance;
 
     public TransactionInformation(Transaction x, TransactionType credit) {
