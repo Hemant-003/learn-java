@@ -56,6 +56,7 @@ public class PersonTest {
         List<TransactionInformation> statement = raj.statement(Calendar.DECEMBER);
 
         assertEquals(4, statement.size());
+
         assertEquals(900, statement.get(0).balance);
         assertEquals(1900, statement.get(1).balance);
         assertEquals(1000, statement.get(2).balance);
@@ -63,12 +64,29 @@ public class PersonTest {
     }
 
     @Test
-    public void testExpenses() {
+    public void testExpenses() throws ParseException {
+        raj.add(new Transaction(1000, Util.getDate("06/12/2014")));
+        raj.spend(new Transaction(900, Util.getDate("08/12/2014")));
+        raj.spend(new Transaction(2900, Util.getDate("10/12/2014")));
+        List<Transaction> expenses = raj.expenses();
 
+        assertEquals(2, expenses.size());
+
+        assertEquals(900, expenses.get(0).amount);
+        assertEquals(2900, expenses.get(1).amount);
     }
 
     @Test
-    public void testExpensesForMonth() {
+    public void testExpensesForMonth() throws ParseException {
+        raj.spend(new Transaction(1000, Util.getDate("06/11/2014")));
+        raj.spend(new Transaction(900, Util.getDate("08/12/2014")));
+        raj.spend(new Transaction(2900, Util.getDate("10/12/2014")));
+        List<Transaction> expenses = raj.expenses(Calendar.DECEMBER);
+
+        assertEquals(2, expenses.size());
+
+        assertEquals(900, expenses.get(0).amount);
+        assertEquals(2900, expenses.get(1).amount);
     }
 
 
