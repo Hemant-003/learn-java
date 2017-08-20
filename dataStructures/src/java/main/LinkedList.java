@@ -55,7 +55,7 @@ public class LinkedList {
 
 	Object remove(Object o){
 		Node previous = this.head;
-		Node dataNode;
+		Node dataNode = null;
 		for (int i = 0; i < size; i++) {
 			Node temp = previous.next;
 			if (temp.data.equals(o)){
@@ -65,5 +65,6 @@ public class LinkedList {
 			}
 			previous = previous.next;
 		}
+		return dataNode;
 	}
 }

@@ -25,3 +25,10 @@ hs_err_pid*
 *.xml
 *.iml
 *.html
+
+# Gradle
+
+# TIDBIT to ignore a folder in current folder and subfolders use **
+
+**.gradle
+**build
