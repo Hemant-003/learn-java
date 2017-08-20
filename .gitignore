@@ -25,9 +25,7 @@ hs_err_pid*
 *.xml
 *.iml
 *.html
-<<<<<<< HEAD
 *.jsdtscope
-=======
 
 # Gradle
 
@@ -35,4 +33,8 @@ hs_err_pid*
 
 **.gradle
 **build
->>>>>>> 83743e7edd8d12b1c5ba3b999c95955d290d746a
+
+#Idea
+
+**.ipr
+**.iws
