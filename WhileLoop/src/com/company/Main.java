@@ -1,6 +1,6 @@
 package com.company;
 
-public class Main {
+public class WhileLoop {
 
     public static void main(String[] args) {
 //        int n=2;
@@ -28,10 +28,8 @@ public class Main {
 
         }
     }        public static boolean isEvenNumber(int number){
-            if(number%2==0) {
-                return true;
-            }else{
-                return false;
+            if (number%2==0) {
+                return number;
             }
 
     }}
