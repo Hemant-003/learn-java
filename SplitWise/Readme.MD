@@ -4,10 +4,12 @@ Assumptions
 Date Format - '02/07/2015' -> Date/Month/Year
 Java Format for this - 'd/M/yyyy'
 
+To convert int to Money
+
  Requirements:
 ------
 	
-* Add Person ^
+* Add service.service ^
 * Add ExpenseByPerson ^
 * Add AdvanceByPerson ^
 * View ExpenseByPerson w/o Month ^
@@ -26,7 +28,7 @@ Development
 -----------
 
 To run: 
-```./gradlew build && java -jar build/libs/SplitWise.jar 1```
+```./gradlew build && java -jar build/libs/service.SplitWise.jar 1```
 
 Learning
 ----
