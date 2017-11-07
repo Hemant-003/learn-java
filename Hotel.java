@@ -1,13 +1,10 @@
-package com.hemant;
+package com.company;
 
-public class Hotel extends BoardCell {
-    Player owner;
-    public Hotel(String c) {
-        super(c);
-    }
+import java.util.HashMap;
 
-    public double getPrice(){
+public class Hotel {
 
-        return 0;
-    }
+
+    HashMap<Room,Customer> bookings = new HashMap<Room, Customer>();
+
 }
